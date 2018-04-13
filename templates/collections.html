@@ -12,6 +12,11 @@
 {% for c in collections %}
     <li><a href="http://localhost:5000/collection/{{ c.id }}">{{ c.name }}</a></li>
 {% endfor %}
+
+ {% if not c%}
+  **there are no collections to show**
+{%endif%} 
+ 
 </ul>
 
 {% endblock %}
