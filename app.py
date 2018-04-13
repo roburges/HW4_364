@@ -374,7 +374,7 @@ def create_collection():
     form.gif_picks.choices = choices
     # TODO 364: If the form validates on submit, get the list of the gif ids that were selected from the form. Use the get_gif_by_id function to create a list of Gif objects.  Then, use the information available to you at this point in the function (e.g. the list of gif objects, the current_user) to invoke the get_or_create_collection function, and redirect to the page that shows a list of all your collections.
     # If the form is not validated, this view function should simply render the create_collection.html template and send the form to the template.
-    if validateCollectionsForm(form):
+    if form.validate_on_submit():
         listIDs = form.gif_picks.data
         gif_object = [get_gif_by_id(db.session, int(id)) for id in listIDs]
         get_or_create_collection(db.session, form.name.data, current_user, gif_object)
@@ -387,8 +387,8 @@ def create_collection():
 def collections():
     # Replace with code
     # TODO 364: This view function should render the collections.html template so that only the current user's personal gif collection links will render in that template. Make sure to examine the template so that you send it the correct data!
-    collections = PersonalGifCollection.query.filter_by(userID = current_user.id)
-    return render_template('collections.html', collections = collections)
+    collections = PersonalGifCollection.query.filter_by(user_id = current_user.id)
+    return render_template('collections.html', collections = collections) 
 
 # Provided
 @app.route('/collection/<id_num>')
